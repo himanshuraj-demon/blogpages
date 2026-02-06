@@ -1,6 +1,4 @@
-const { trusted } = require("mongoose");
 const User = require("../models/user");
-
 function handelSignUp(req, res) {
     return res.render("signup")
 };
@@ -16,9 +14,7 @@ async function handleUserSignUp(req, res) {
         email: email,
         password: password,
     })
-    return res.render("home",{
-        name:req.body.name,
-    });
+    return res.render("login",{err:null})
     } catch (error) {
         return res.render("signup");
     }
