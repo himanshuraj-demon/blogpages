@@ -19,7 +19,7 @@ app.use(cookieParcher())
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(checkForAuthontication("token"))
-app.use(express.static(path.resolve('./public')));
+app.use(express.static(path.resolve('public')));
 app.use((req,res,next)=>{
     res.locals.user = req.user;
     next();

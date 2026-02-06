@@ -1,4 +1,5 @@
 const Blog=require('../models/blog');
+const Comment=require('../models/comments');
 
 async function getUserBlogs(req,res) {
     const mybloger = await Blog.find({
@@ -13,12 +14,14 @@ async function getUserBlogs(req,res) {
 }
 
 async function getBlogPage(req,res) {
-    const blog=await Blog.findById(req.params.id);
+    const blog=await Blog.findById(req.params.id).populate("createdBy");
     const blogs=await Blog.find({});
+    const comments=await Comment.find({BlogId:req.params.id}).populate("createdBy");
     return res.render("blog",{
-        user:req.user,
         blog,
         blogs,
+        comments,
+        
     })
     
 }
@@ -83,7 +86,40 @@ async function patchForEditBlog(req,res) {
    return res.redirect(`/blog/${req.params.id}`);
     
 }
+async function handleComments(req,res) {
+    await Comment.create({
+      content:req.body.content,
+      BlogId:req.params.blogId,
+      createdBy:req.user._id,
+    })
+    return res.redirect(`/blog/${req.params.blogId}`);
+}
 
+async function commentDelete(req,res) {
+    const comment = await Comment.findById(req.params.commentId);
+
+    if(!comment){
+        return res.status(404).send("Comment not found");
+    }
+
+    const blog = await Blog.findById(comment.BlogId);
+
+
+    if(!req.user){
+        return res.redirect("/login");
+    }
+
+    const isCommentOwner = comment.createdBy.toString() === req.user._id.toString();
+    const isBlogOwner = blog.createdBy.toString() === req.user._id.toString();
+
+    if(!isCommentOwner && !isBlogOwner){
+        return res.status(403).send("Not allowed");
+    }
+    await Comment.findByIdAndDelete(req.params.commentId);
+
+    res.redirect(`/blog/${comment.BlogId}`);
+    
+}
 module.exports={
     getUserBlogs,
     getBlogPage,
@@ -92,4 +128,6 @@ module.exports={
     profilePage,
     getForEditBlog,
     patchForEditBlog,
+    handleComments,
+    commentDelete,
 }

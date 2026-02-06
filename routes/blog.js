@@ -1,8 +1,8 @@
 const express=require("express");
 const multer=require("multer");
 const router=express.Router();
-const Blog=require('../models/blog');
-const { getUserBlogs, getBlogPage, addBlogs, deleteBlog, profilePage, getForEditBlog, patchForEditBlog }=require('../controllers/blog');
+const Comment=require("../models/comments");
+const { getUserBlogs, getBlogPage, addBlogs, deleteBlog, profilePage, getForEditBlog, patchForEditBlog, handleComments, commentDelete }=require('../controllers/blog');
 const path=require('path');
 
 const storage = multer.diskStorage({
@@ -21,11 +21,13 @@ router.get('/',(req,res)=>{
     res.render("addblog");
 })
 router.get("/profile",profilePage);
+router.post('/comment/:blogId',handleComments)
 router.get('/myblog', getUserBlogs);
 router.get('/:id',getBlogPage)
 router.post('/',upload.single('coverImg'),addBlogs)
 router.get("/edit/:id",getForEditBlog);
 router.post('/delete/:id', deleteBlog);
 router.patch("/:id", upload.single("coverImg"), patchForEditBlog);
+router.post("/comment/delete/:commentId",commentDelete);
 
 module.exports=router;
