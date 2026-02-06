@@ -4,50 +4,115 @@
 <head>
     <%- include("./partials/head") %>
         <title>Home Page</title>
+        <style>
+
+/* CARD ANIMATION */
+
+.blog-card {
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+}
+
+/* IMAGE ZOOM EFFECT */
+
+.image-wrapper {
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    height: 240px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover img {
+    transform: scale(1.05);
+}
+
+/* READ BUTTON PREMIUM */
+
+.read-btn {
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.read-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* DARK MODE SUPPORT */
+
+body.dark-mode .blog-card {
+    background: rgba(30,30,30,0.7);
+    backdrop-filter: blur(10px);
+}
+
+body.dark-mode .card-text {
+    color: #ccc !important;
+}
+
+</style>
+
    
 </head>
 
 <body>
     <%- include("./partials/nav") %>
 
-        <div class="row g-4 m-5">
+        <div class="container-xl py-4">
 
-            <% blogs.forEach(element => { %>
+    <!-- PAGE TITLE -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-6">Latest Blogs 🚀</h1>
+    </div>
 
-                <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="row g-4">
 
-                    <div class="card h-100 shadow-sm border-0">
+        <% blogs.forEach(element => { %>
 
-                        <img 
-                            src="<%= element.coverImg %>" 
-                            class="card-img-top"
-                            style="height:250px; object-fit:cover;"
-                        >
+        <div class="col-12 col-md-6 col-lg-4">
 
-                        <div class="card-body d-flex flex-column">
+            <div class="card blog-card h-100 border-0 shadow-sm">
 
-                            <h5 class="card-title text-center">
-                                <%= element.title.split('"')[0] %>
-                            </h5>
+                <!-- IMAGE -->
+                <div class="image-wrapper">
+                    <img src="<%= element.coverImg %>" class="card-img-top">
+                </div>
 
-                            <p class="card-text flex-grow-1">
-                                <%= element.body.substring(0,120) %>...
-                            </p>
+                <div class="card-body d-flex flex-column">
 
-                            <a href="/blog/<%= element._id %>" 
-                               class="btn btn-dark mt-auto">
-                               Read
-                            </a>
+                    <h5 class="card-title text-center fw-semibold">
+                        <%= element.title.split('"')[0] %>
+                    </h5>
 
-                        </div>
+                    <p class="card-text flex-grow-1 text-muted">
+                        <%= element.body.substring(0,120) %>...
+                    </p>
 
-                    </div>
+                    <a href="/blog/<%= element._id %>" 
+                       class="btn btn-dark mt-auto read-btn">
+                        Read More →
+                    </a>
 
                 </div>
 
-            <% }); %>
+            </div>
 
         </div>
+
+        <% }); %>
+
+    </div>
+
+</div>
+
 
 
 
