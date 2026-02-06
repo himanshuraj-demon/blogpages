@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand h1" href="#">BLoGg</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <!-- <a class="nav-link active" aria-current="page" href="/">Home</a> -->
+          <a class="nav-link <%= activePath === '/' ? 'active' : '' %>" href="/">
+  Home
+</a>
+
+        </li>
+        
+        <% if (user) { %>
+         <li class="nav-item">
+          <!-- <a class="nav-link" href="/blog/myblog">My blogs</a> -->
+          <a class="nav-link <%= activePath === '/blog/myblog' ? 'active' : '' %>" href="/blog/myblog">
+  My Blogs
+</a>
+
+        </li>
+         <li class="nav-item">
+          <!-- <a class="nav-link" href="/blog/">Add blog</a> -->
+          <a class="nav-link <%= activePath === '/blog' ? 'active' : '' %>" href="/blog">
+  Add Blogs
+</a>
+
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%=user.name %>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item bg-danger" href="/user/logout/" onclick="return confirm('Want To Log-Out?')">Log-Out</a></li>
+            <li><a class="dropdown-item" href="/blog/profile">Profile</a></li>
+          </ul>
+        </li>
+        <%} else{ %>
+          <a href="/user/"><button type="button" class="btn btn-primary mx-3">Create Account</button></a>
+          <a href="/user/login/"><button type="button" class="btn btn-outline-secondary">LogIn</button></a>
+        <%}%>
+        
+
+
+      </ul>
+    </div> 
+    <button id="themeToggle" onclick="toggleDarkMode()">
+    <i class="bi bi-moon-fill"></i>
+</button>
+
+  </div>
+ 
+</nav>
+

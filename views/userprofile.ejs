@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <%- include("./partials/head") %>
+
+</head>
+
+<body class="bg-light">
+
+<%- include("./partials/nav") %>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-dark text-white text-center">
+                    <h4 class="mb-0">User Profile</h4>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body text-center">
+
+                    <!-- Profile Image -->
+                    <img
+                      src="<%= user.profileImageUrl || '/images/defualt.jpg' %>"
+                      class="rounded-circle mb-3"
+                      width="120"
+                      height="120"
+                      style="object-fit:cover;"
+                    >
+
+                    <!-- Name -->
+                    <h3 class="fw-bold"><%= user.name %></h3>
+
+                    <!-- Email -->
+                    <p class="text-muted"><%= user.email %></p>
+
+                    <hr>
+
+                    <!-- Blog Stats -->
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <h5>Total Blogs</h5>
+                            <h3 class="fw-bold"><%= totalBlogs %></h3>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5>Member Since</h5>
+                            <h6><%= user.createdAt ? new Date(user.createdAt).toDateString() : "N/A" %></h6>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<%- include("./partials/footer") %>
+<%- include("./partials/script") %>
+
+</body>
+</html>

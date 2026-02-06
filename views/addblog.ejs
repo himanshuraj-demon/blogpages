@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("./partials/head") %>
+    <title>Add Blog</title>
+    <style>
+.CodeMirror {
+    background: #fff;
+    color: #000;
+    border-radius: 6px;
+}
+
+.editor-toolbar {
+    background: #f8f9fa;
+}
+</style>
+
+  </head>
+  <body>
+    <%- include("./partials/nav") %>
+    <div class="container mx-auto my-4">
+      <form action="/blog/" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label h2">Title</label>
+          <input
+            type="text"
+            class="form-control border-success-subtle"
+            id="title"
+            name="title"
+            aria-describedby="title"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="body" class="form-label h3">Content</label>
+          <textarea
+            class="form-control border-success-subtle"
+            id="body"
+            name="body"
+            rows="3"
+            
+          ></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-secondary" type="button" id="coverImg">
+            Image
+          </button>
+          <input
+            type="file"
+            class="form-control"
+            id="coverImg"
+            name="coverImg"
+            aria-describedby="coverImg"
+            aria-label="Upload"
+          />
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+ 
+          <a href="/"><button type="button" class="btn btn-outline-danger mx-3">Cancel</button></a>
+      </form>
+    </div>
+
+    <%- include("./partials/script") %>
+    <script>
+     document.querySelector("form").addEventListener("submit", function(e){
+
+   simplemde.codemirror.save();
+
+   if(!simplemde.value().trim()){
+      alert("Content required");
+      e.preventDefault();
+   }
+
+});
+
+
+
+  var simplemde = new SimpleMDE({
+      element: document.getElementById("body"),
+      spellChecker: false,
+      placeholder: "Write your blog here...\n\nUse ``` for code blocks",
+  });
+</script>
+
+    <%- include("./partials/footer") %>
+  </body>
+</html>

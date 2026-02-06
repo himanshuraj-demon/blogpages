@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+  <title>Sign Up Page</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(to right, #050109, #03245d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #444;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2575fc;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #1a5ed7;
+}
+
+.register-link {
+  margin-top: 16px;
+  text-align: center;
+  color: #555;
+}
+
+.register-link a {
+  color: #2575fc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+.password-box{
+  margin-bottom: 20px;
+}
+.password-box input{
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+.password-box label{
+  display: block;
+  margin-bottom: 6px;
+  color: #444;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Sign Up</h2>
+    <form  method="post" action="/user/signup">
+      <div class="input-group">
+        <label>Name</label>
+        <input type="text" id="name" placeholder="Enter your Username" required name="name"/>
+      </div>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required name="email"/>
+        
+      </div>
+      <div class="password-box">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required name="password" minlength="8"/>
+        <i class="fa-solid fa-eye" id="togglePassword"></i>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  <script>
+    const password = document.getElementById("password");
+const toggle = document.getElementById("togglePassword");
+
+toggle.onclick = () => {
+  const isPassword = password.type === "password";
+  password.type = isPassword ? "text" : "password";
+  toggle.classList.toggle("fa-eye");
+  toggle.classList.toggle("fa-eye-slash");
+};
+  </script>
+</body>
+</html>

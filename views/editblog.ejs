@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <title>Edit Blog</title>
+</head>
+
+<body>
+
+<%- include("./partials/nav") %>
+
+<div class="container my-5">
+
+<h2 class="text-center mb-4">Edit Blog</h2>
+
+<form action="/blog/<%= blog._id %>?_method=PATCH" 
+      method="POST" 
+      enctype="multipart/form-data">
+
+    <!-- TITLE -->
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input 
+            type="text"
+            name="title"
+            class="form-control"
+            value="<%= blog.title %>"
+            required>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea 
+            id="body"
+            name="body"
+            class="form-control"><%= blog.body %></textarea>
+    </div>
+
+    <!-- CURRENT IMAGE -->
+    <% if(blog.coverImg){ %>
+    <div class="mb-3">
+        <p>Current Image:</p>
+        <img src="<%= blog.coverImg %>" width="200" class="rounded">
+    </div>
+    <% } %>
+
+    <!-- NEW IMAGE -->
+    <div class="mb-3">
+        <label class="form-label">Change Image (optional)</label>
+        <input type="file" name="coverImg" class="form-control">
+    </div>
+
+    <button class="btn btn-success">Update Blog</button>
+
+</form>
+
+</div>
+
+<%- include("./partials/footer") %>
+<%- include("./partials/script") %>
+
+<!-- SIMPLEMDE -->
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+<script>
+var simplemde = new SimpleMDE({
+   element: document.getElementById("body"),
+   spellChecker:false
+});
+</script>
+
+</body>
+</html>
