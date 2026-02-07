@@ -36,13 +36,20 @@ app.use("/user",userRoute);
 app.use("/blog",requireAuth,blogRoute);
 
 
-
+app.get("/error",(req,res)=>{
+    return res.render("error");
+})
 app.get("/",async (req,res)=>{
-    const allBlogs=await Blog.find({});
-    res.render("home",
+    try {
+        const allBlogs=await Blog.find({});
+        return res.render("home",
         {user:req.user,
-        blogs:allBlogs,
+        blogs:allBlogs||null,
         })
+    } catch (error) {
+        return res.render("error");
+    }
+    
 })
 
 app.listen(process.env.PORT || 3000,()=>console.log("server started"))

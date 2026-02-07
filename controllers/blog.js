@@ -2,7 +2,8 @@ const Blog=require('../models/blog');
 const Comment=require('../models/comments');
 
 async function getUserBlogs(req,res) {
-    const mybloger = await Blog.find({
+    try {
+        const mybloger = await Blog.find({
         createdBy: req.user._id  
     });
 
@@ -10,19 +11,28 @@ async function getUserBlogs(req,res) {
         user:req.user,
         blogs: mybloger,
     });
+    } catch (error) {
+        return res.render("error");
+    }
+    
     
 }
 
 async function getBlogPage(req,res) {
-    const blog=await Blog.findById(req.params.id).populate("createdBy");
-    const blogs=await Blog.find({});
-    const comments=await Comment.find({BlogId:req.params.id}).populate("createdBy");
+    try {
+        const blog=await Blog.findById(req.params.id).populate("createdBy");
+        const blogs=await Blog.find({});
+        const comments=await Comment.find({BlogId:req.params.id}).populate("createdBy");
     return res.render("blog",{
         blog,
         blogs,
         comments,
         
     })
+    } catch (error) {
+        return res.render("error")
+    }
+    
     
 }
 
