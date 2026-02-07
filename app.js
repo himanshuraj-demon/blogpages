@@ -35,7 +35,7 @@ app.set("view engine","ejs");
 app.use("/user",userRoute);
 app.use("/blog",requireAuth,blogRoute);
 
-
+console.log(process.env.MONGO_URL);
 app.get("/error",(req,res)=>{
     return res.render("error");
 })
